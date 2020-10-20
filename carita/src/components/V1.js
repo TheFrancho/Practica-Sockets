@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "./V1.css"
 
-
 export default function V1() {
     const [sisas,setSisas]=useState("")
     const [cambia,setCambia]=useState(true)
@@ -15,17 +14,29 @@ export default function V1() {
     },[])
 
     useEffect(()=>{socket.addEventListener('message', function (event) {
-        console.log('Message from server ', setSalida(event.data));
+        setSalida(event.data)
+        console.log('Message from server ');
     });},[socket])
 
     const q = (e)=>{
         setSisas(e.target.value)
-        socket.send(JSON.stringify({
-            lenguaje : cambia,
-            contenido : e.target.value
-        })
-            )
+        asin(e)
     }
+
+    async function asin(e) {
+        try {
+            let server = await socket.send(JSON.stringify({
+                lenguaje : cambia,
+                contenido : e.target.value
+            }))
+            // ... use server
+        } catch (error) {
+            let server = await socket.send(JSON.stringify({
+                lenguaje : cambia,
+                contenido : e.target.value
+            }))
+        }
+      }
 
     return (
         <div id="V1">

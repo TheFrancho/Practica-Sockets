@@ -4,6 +4,7 @@ import json
 import traductor
 
 async def server(websocket, path):
+    x=0
     async for message in websocket:
         print(message)
         dic=json.loads(message)
