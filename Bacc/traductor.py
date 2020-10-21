@@ -65,4 +65,3 @@ def bin_espa(encriptado): #Función principal que transforma de español a binar
             pivote=""
         contador=contador+1 
     return palabra
-
