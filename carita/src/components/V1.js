@@ -42,12 +42,12 @@ export default function V1() { //Función que se exporta que contiene todo el co
            <div id = "Op">
                 <div>
                     <div>{cambia?"Español":"Binario"}</div>
-                        <input type="text" id="Cajita1" name="Cajita1" placeholder="Ingrese un texto a traducir" 
+                        <textarea type="text" id="Cajita1" name="Cajita1" placeholder="Ingrese un texto a traducir" 
                         value={cadena} onChange={q}/>
                     </div>
                 <div>
                     <div>{cambia?"Binario":"Español"}</div>
-                    <input type="text" id="Cajita2" name="Cajita2" placeholder="Mire el resultado de la traducción" readOnly
+                    <textarea type="text" id="Cajita2" name="Cajita2" placeholder="Mire el resultado de la traducción" readOnly
                     value={salida}/>
                 </div>
             </div>  

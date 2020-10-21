@@ -1,6 +1,6 @@
 def espa_bin(pivote): #Función principal que transforma de español a binario
     pivote=pivote.upper() #Toma toda la cadena de entrada y la vuelve a mayusculas
-    diccionario={'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'H':7,'I':8,'J':9,'K':10,'L':11,'M':12,'N':13,'Ñ':14,'O':15,'P':16,'Q':17,'R':18,'S':19,'T':20,'U':21,'V':22,'W':23,'X':24,'Y':25,'Z':26,' ':27}
+    diccionario={'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'H':7,'I':8,'J':9,'K':10,'L':11,'M':12,'N':13,'Ñ':14,'O':15,'P':16,'Q':17,'R':18,'S':19,'T':20,'U':21,'V':22,'W':23,'X':24,'Y':25,'Z':26,' ':27, "\n" : 28, "," : 29, ".": 30, ":" : 31}
     mensaje="" #Inicializamos el mensaje
     cadena="" #Se inicializa la cadena que va a contener el binario de la letra
     for i in range(len(pivote)): #Se hace un for para toda la cadena
@@ -48,7 +48,7 @@ def depurador(encriptado): #Función auxiliar para limpiar cadenas con binarios
 
 
 def bin_espa(encriptado): #Función principal que transforma de español a binario
-    diccionario={'numeros': ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ']}
+    diccionario={'numeros': ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ', '\n', ",", ".", ":" ]}
     decimal=0 #Variable deonde se guarda el valor decimal de cada palabra
     pivote="" #Cadena donde se van almacenando paquetes de 5 bits
     palabra="" #Cadena principal donde se va aquiriendo la palabra a retornar
