@@ -1,42 +1,49 @@
 import React, {useEffect, useState} from 'react';
 import "./V1.css"
+import io from "socket.io-client";
+
+let socket;
 
 export default function V1() {
     const [sisas,setSisas]=useState("")
     const [cambia,setCambia]=useState(true)
     const [salida, setSalida]=useState("")
-    const socket = new WebSocket("ws://localhost:10000")
+    const ENDPOINT = "localhost:5000"
+
+    // useEffect(()=>{
+    //     socket.addEventListener("open",(e)=>{console.log("ChalocaXD")} )
+    //     socket.addEventListener("close", (e)=>{console.log("Bai")})
+        
+    // },[])
 
     useEffect(()=>{
-        socket.addEventListener("open",(e)=>{console.log("ChalocaXD")} )
-        socket.addEventListener("close", (e)=>{console.log("Bai")})
-        
+        socket = io(ENDPOINT);
     },[])
 
-    useEffect(()=>{socket.addEventListener('message', function (event) {
-        setSalida(event.data)
-        console.log('Message from server ');
-    });},[socket])
+    useEffect(()=>{
+        socket.on("response", (msg)=>{
+            setSalida(msg)
+        })
+    }, [salida])
+
+    // useEffect(()=>{
+    //     socket.on("message", (message) => {
+    //         console.log(`francuck recibió un mensaje ${message}`)
+    //     })
+    // }, [])
+
+    // useEffect(()=>{socket.addEventListener('message', function (event) {
+    //     setSalida(event.data)
+    //     console.log('Message from server ');
+    // });},[socket])
 
     const q = (e)=>{
         setSisas(e.target.value)
-        asin(e)
-    }
-
-    async function asin(e) {
-        try {
-            let server = await socket.send(JSON.stringify({
-                lenguaje : cambia,
-                contenido : e.target.value
-            }))
-            // ... use server
-        } catch (error) {
-            let server = await socket.send(JSON.stringify({
-                lenguaje : cambia,
-                contenido : e.target.value
-            }))
-        }
-      }
+        socket.emit("message", JSON.stringify({
+            lenguaje : cambia,
+            contenido : e.target.value
+        }));
+     }
 
     return (
         <div id="V1">
@@ -48,7 +55,7 @@ export default function V1() {
                     </div>
                 <div>
                     <div>{cambia?"Binario":"Español"}</div>
-                    <input type="text" id="Cajita2" name="Cajita2" placeholder="Mire el resultado de la traducción"
+                    <input type="text" id="Cajita2" name="Cajita2" placeholder="Mire el resultado de la traducción" readOnly
                     value={salida}/>
                 </div>
             </div>
