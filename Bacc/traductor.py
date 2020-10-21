@@ -46,7 +46,6 @@ def depurador(encriptado): #Función auxiliar para limpiar cadenas con binarios
             puro+=i
     return puro
 
-
 def bin_espa(encriptado): #Función principal que transforma de español a binario
     diccionario={'numeros': ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ', '\n', ",", ".", ":" ]}
     decimal=0 #Variable deonde se guarda el valor decimal de cada palabra

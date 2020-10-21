@@ -1,4 +1,4 @@
-from flask import Flask, render_template #Se importa del gestionador de servidotes Flask la clase Flask
+from flask import Flask #Se importa del gestionador de servidores Flask la clase Flask
 from flask_socketio import SocketIO, emit #Se importan de los WebSockets de Flask los métodos socketIO y emit 
 import json #Se importa el módulo json para traducir las entradas de javascript en diccionarios de python
 import traductor #Se importa el código de traductor que realiza el proceso de traducción
@@ -23,3 +23,4 @@ def Proceso_Traduccion(msg): #Se realiza el proceso de traducción según el con
 
 if __name__ == '__main__': #Se inicializa el programa
     socketio.run(app, debug=True)
+    
