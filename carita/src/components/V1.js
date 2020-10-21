@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'; //Cosas de React
 import "./V1.css" //Se importa el css de la página
 import io from "socket.io-client"; //Se importan los web sockets del cliente
+import TextareaAutosize from 'react-textarea-autosize';
 
 let socket;
 
@@ -21,37 +22,60 @@ export default function V1() { //Función que se exporta que contiene todo el co
     }, [salida])
 
     const q = (e)=>{ //Función flecha que se encarga de enviar en tiempo real el trxto a traducir al servidor
-        setCadena(e.target.value)
-        socket.emit("mensaje", JSON.stringify({
-            lenguaje : cambia,
-            contenido : e.target.value
-        }));
+        if (cambia){
+            if (/^([A-Za-zñ,. /\n/])*$/.test(e.target.value)){
+                setCadena(e.target.value)
+                socket.emit("mensaje", JSON.stringify({
+                    lenguaje : cambia,
+                    contenido : e.target.value
+                }));
+            }
+        }
+        else {
+            if (/^([10])*$/.test(e.target.value)){
+                setCadena(e.target.value)
+                socket.emit("mensaje", JSON.stringify({
+                    lenguaje : cambia,
+                    contenido : e.target.value
+                }));
+            }
+        }
      }
 
      const b = (e)=>{ //Función flecha que se encarga de limpiar el texto al orpimir el botón de cambiar lenguaje
         setCambia(!cambia)
         setCadena("")
-        socket.emit("mensaje", JSON.stringify({
-            lenguaje : cambia,
-            contenido : ""
-        }));
+        setSalida("")
      }
 
     return ( //Se retorna el contendio html para renderizar en la página
         <div id="V1"> 
            <div id = "Op">
                 <div>
-                    <div>{cambia?"Español":"Binario"}</div>
-                        <textarea type="text" id="Cajita1" name="Cajita1" placeholder="Ingrese un texto a traducir" 
-                        value={cadena} onChange={q}/>
+                    <div id="texto">{cambia?"Español":"Binario"}</div>
+                        <TextareaAutosize 
+                            type="text" id="Cajita1" name="Cajita1" 
+                            placeholder="Ingrese un texto a traducir" 
+                            cols="40"
+                            maxRows={20}
+                            minRows={10}
+                            value={cadena} onChange={q}/>
                     </div>
                 <div>
-                    <div>{cambia?"Binario":"Español"}</div>
-                    <textarea type="text" id="Cajita2" name="Cajita2" placeholder="Mire el resultado de la traducción" readOnly
-                    value={salida}/>
+                    <div id="texto">{cambia?"Binario":"Español"}</div>
+                    <TextareaAutosize 
+                        type="text" 
+                        id="Cajita2" 
+                        name="Cajita2" 
+                        placeholder="Mire el resultado de la traducción"
+                        cols="40"
+                        maxRows={20}
+                        minRows={10}
+                        readOnly
+                        value={salida}/>
                 </div>
             </div>  
-            <div><button onClick={b}>Cambiar lenguaje</button></div>
+            <div><button id="myButton" onClick={b}>Cambiar lenguaje</button></div>
         </div>
     )
 }
