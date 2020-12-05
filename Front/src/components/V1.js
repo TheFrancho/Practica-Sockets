@@ -9,7 +9,8 @@ export default function V1() { //Función que se exporta que contiene todo el co
     const [cadena,setCadena]=useState("") //Variable de React que se encarga de obtener y cambiar el valor de la cadena a traducir
     const [cambia,setCambia]=useState(true) //Variable de React que se encarga de cambiar el lenguaje a traducir
     const [salida, setSalida]=useState("") //Variable de react que se encarga de obtener y dar el valor de la traducción
-    const ENDPOINT = "localhost:5000" //Variable de javascript que contiene la dirección de conexión al servidor
+    //const ENDPOINT = "https://practica-sockets-traductor.herokuapp.com/" //Variable de javascript que contiene la dirección de conexión al servidor
+    const ENDPOINT = "localhost:5000"
 
     useEffect(()=>{ //Hook de React que se encarga de conectar una única vez con el servidor
         socket = io(ENDPOINT);
@@ -23,7 +24,7 @@ export default function V1() { //Función que se exporta que contiene todo el co
 
     const q = (e)=>{ //Función flecha que se encarga de enviar en tiempo real el trxto a traducir al servidor
         if (cambia){
-            if (/^([A-Za-zñ,. /\n/])*$/.test(e.target.value)){
+            if (/^([A-Za-zñ:,. /\n/])*$/.test(e.target.value)){
                 setCadena(e.target.value)
                 socket.emit("mensaje", JSON.stringify({
                     lenguaje : cambia,

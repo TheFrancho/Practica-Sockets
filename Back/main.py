@@ -9,7 +9,7 @@ socketio = SocketIO(app, cors_allowed_origins="*") #Se inicializan los sockets c
 
 @socketio.on('connect') #Si la conexión recibe un "connect"
 def conectado(): #Imprime 
-    print ("Conectado al servidor")
+    print ("Cliente conectado al servidor")
 
 @socketio.on('mensaje') #Si la conexión recibe un "mensaje"
 def Proceso_Traduccion(msg): #Se realiza el proceso de traducción según el contenido del json de entrada
@@ -18,7 +18,6 @@ def Proceso_Traduccion(msg): #Se realiza el proceso de traducción según el con
         out=traductor.espa_bin(dic["contenido"])
     else:
         out=traductor.bin_espa(dic["contenido"])
-    print(out)
     emit('respuesta', out)
 
 if __name__ == '__main__': #Se inicializa el programa
